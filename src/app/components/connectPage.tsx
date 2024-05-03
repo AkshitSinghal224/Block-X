@@ -46,7 +46,7 @@ export default function ConnectPage() {
           >
             <ConnectButton
               wallets={supportedWallets}
-              autoConnect={{ timeout: 10000 }}
+              autoConnect={{ timeout: 5000 }}
               client={client}
             />
           </div>

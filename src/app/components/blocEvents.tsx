@@ -18,7 +18,7 @@ export default function BlocEvents() {
     filterData();
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [contactEvent]);

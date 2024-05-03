@@ -1,4 +1,4 @@
-# Block-X
+# Block-X 
 
 Block-X is a decentralized application (dApp) built on the Binance Smart Chain network, designed to facilitate the posting, deletion, and tipping of "blocs," similar to tweets on social media platforms. With a user-friendly interface, Block-X empowers users to engage with the blockchain in a seamless and intuitive manner.
 
@@ -20,6 +20,11 @@ Block-X is responsive and can be accessed from various devices including desktop
 - React.js
 - ThirdWeb Library
 - solidity
+
+### Live Link -> https://block-x-nine.vercel.app/
+### Contract Repo -> https://github.com/AkshitSinghal224/BLOCK-X-Contract
+### Contract -> https://testnet.bscscan.com/address/0x06F0C72AA1894a6267FfbdbDf4198a4882B2feCf
+### ThirdWeb -> https://thirdweb.com/binance-testnet/0x06F0C72AA1894a6267FfbdbDf4198a4882B2feCf/analytics
 
 ## Screenshots
 

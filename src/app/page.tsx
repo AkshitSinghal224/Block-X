@@ -1,95 +1,56 @@
-import Image from "next/image";
+'use client'
 import styles from "./page.module.css";
+import { useEffect, useState } from "react";
+import LoadingIcons from "react-loading-icons";
+import UserStatus from "./components/user-status";
+import BlocEvents from "./components/blocEvents";
+import { useActiveAccount } from "thirdweb/react";
+import ConnectPage from "./components/connectPage";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
+  const [isLoading, setIsLoading] = useState(true);
+  const account = useActiveAccount();
+  console.log(account);
+
+  useEffect(() => {
+    // Set a timeout for 3 seconds
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 0);
+
+    // Cleanup the timer when the component is unmounted
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className={styles.pageLoading}>
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+          <LoadingIcons.Puff />
         </div>
       </div>
+    );
+  }
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+  if (!account) {
+    return <ConnectPage />;
+  }
+
+  return (
+    <main className={styles.main} style={{position:'relative'}}>
+      <div>
+        <img
+          className={styles.authLogoHomePage}
+          src="https://media.discordapp.net/attachments/1182683580225290311/1235326561041907732/block-x.png?ex=6633f703&is=6632a583&hm=b4e56ceefba48b3875d9094a3556c53b7ef44f2fb012708223417abd4e6b8a8e&=&format=webp&quality=lossless&width=700&height=700"
         />
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className={styles.container}>
+        <div className={styles.statusContainer}>
+          <UserStatus />
+        </div>
+        <h3>Bloc Feed:</h3>
+        <BlocEvents />
       </div>
     </main>
   );
-}
+};

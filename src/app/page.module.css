@@ -429,6 +429,8 @@
   position: absolute;
   width: 100px;
   margin: 1rem 3rem;
+  width: 750;
+  height: 750;
 }
 
 @media (max-width: 768px) {
@@ -475,7 +477,8 @@
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  margin-left: 0.5rem;
+  margin-left: 0.3rem;
+  margin-top: 0.5rem;
 }
 
 .eventControls {
@@ -494,7 +497,6 @@
   font-size: 0.85rem;
   width: 100%;
   align-self: flex-end;
-  margin-right: 0.5rem;
 }
 
 .deleteButton:hover {
@@ -521,6 +523,25 @@
   opacity: 80% !important;
 }
 
+.tipModalButton {
+  background-color: #272c34 !important;
+  border-radius: 10px !important;
+  padding: 0.5rem !important;
+  margin: 10px 0 !important;
+  width: 100% !important;
+  height: 40px !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  font-size: 0.85rem !important;
+  transition: all 0.25s ease !important;
+ 
+}
+
+.tipModalButton:hover {
+  background-color: #c7992e !important;
+  opacity: 80% !important;
+}
+
 .tipButton {
   background-color: #222;
   border: none;
@@ -535,7 +556,7 @@
 }
 
 .tipButton:hover {
-  background-color: #1c9bef;
+  background-color: #c7992e !important;
   opacity: 80%;
 }
 
@@ -566,6 +587,41 @@
 }
 
 .tipModalButton:hover {
-  background-color: #1c9bef !important;
+  background-color: #c7992e !important;
+  opacity: 80% !important;
+}
+
+.tipText{
+  
+  font-weight: 600;
+}
+
+.alertModalHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: large;
+  font-weight: 500;
+  
+}
+
+.alertModalButton {
+  background-color: #272c34 !important;
+  border-radius: 10px !important;
+  padding: 0.5rem !important;
+  margin: 10px 0 !important;
+  width: 100% !important;
+  height: 40px !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  font-size: 0.85rem !important;
+  transition: all 0.25s ease !important;
+  border: none;
+ 
+}
+
+.alertModalButton:hover {
+  background-color: '#555' !important;
   opacity: 80% !important;
 }

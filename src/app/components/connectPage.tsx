@@ -22,7 +22,7 @@ export default function ConnectPage() {
         <div>
           <img
             className={styles.authLogo}
-            src="https://media.discordapp.net/attachments/1182683580225290311/1235326561041907732/block-x.png?ex=6633f703&is=6632a583&hm=b4e56ceefba48b3875d9094a3556c53b7ef44f2fb012708223417abd4e6b8a8e&=&format=webp&quality=lossless&width=700&height=700"
+            src="https://media.discordapp.net/attachments/1182683580225290311/1235326561041907732/block-x.png?ex=6635f143&is=66349fc3&hm=0ab9ad2a06c2d700ab79be62636310f69f603727b3d2bd12517c6a352bcb1eba&=&format=webp&quality=lossless&width=750&height=750"
           />
         </div>
       </div>

@@ -1,64 +1,74 @@
-import { useContract, useContractEvents } from "@thirdweb-dev/react";
-import { CONTRACT_ADDRESS } from "../constants/addresses";
 import EventCard from "./eventCard";
-import styles from "../styles/Home.module.css";
+import styles from "../page.module.css";
 import { useEffect, useState } from "react";
 import LoadingIcons from "react-loading-icons";
+import { useContractEvents, useReadContract } from "thirdweb/react";
+import { contract } from "../utils/contract";
 
 export default function BlocEvents() {
   const [isLoading, setIsLoading] = useState(true);
-  const [deletedBlocs, setDeletedBlocs] = useState<any>([]);
-  const { contract } = useContract(CONTRACT_ADDRESS);
+  const [UpdatedEvent, setUpdatedEvent] = useState<any>([]);
 
-  const { data: blocUpdatedEvents, isLoading: isBlocUpdatedEventsLoading } =
-    useContractEvents(contract, "BlocUpdated", { subscribe: true });
-
-  const { data: blocDeletedEvents, isLoading: isBlocDeletedEventsLoading } =
-    useContractEvents(contract, "BlocDeleted", { subscribe: true });
+  const { data: contactEvent, refetch: refetchContractEvent } =
+    useContractEvents({ contract: contract });
 
   useEffect(() => {
-    // Set a timeout for 2 seconds
+    setIsLoading(true);
+    refetchContractEvent();
+    filterData();
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 0);
+    }, 3000);
 
-    // Cleanup the timer when the component is unmounted
     return () => clearTimeout(timer);
-  }, []);
+  }, [contactEvent]);
 
-  useEffect(() => {
-    // Extract deleted blocs from blocDeletedEvents
-    if (blocDeletedEvents && !isBlocDeletedEventsLoading) {
-      const deletedIds = blocDeletedEvents.map((event) => event.data.uniqueId);
-      setDeletedBlocs(deletedIds);
-    }
-  }, [blocDeletedEvents, isBlocDeletedEventsLoading]);
-
-  if (isLoading) {
-    return (
-      <div className={styles.sectionLoading}>
-        <LoadingIcons.Puff />
-      </div>
+  async function filterData() {
+    const blocDeletedEvents = contactEvent?.filter(
+      (event: any) => event.eventName === "BlocDeleted"
     );
+
+    const deletedUniqueIdSet = new Set(
+      blocDeletedEvents?.map((event: any) => event.args.uniqueId)
+    );
+
+    const blocUpdatedEvents = contactEvent?.filter(
+      (event: any) => event.eventName === "BlocUpdated"
+    );
+
+    const filteredBlocUpdatedEvents = blocUpdatedEvents?.filter(
+      (event: any) => !deletedUniqueIdSet.has(event.args.uniqueId)
+    );
+
+    setUpdatedEvent(filteredBlocUpdatedEvents);
   }
 
-  const filteredBlocs = blocUpdatedEvents?.filter(
-    (event) => !deletedBlocs.includes(event.data.uniqueId)
-  );
+  // if (isLoading) {
+  //   return (
+  //     <div className={styles.sectionLoading}>
+  //       <LoadingIcons.Puff />
+  //     </div>
+  //   );
+  // }
+
+  if (UpdatedEvent && UpdatedEvent.length == 0) {
+    return <div className={styles.NoBloc}>No Bloc yet</div>;
+  }
 
   return (
     <div>
-      {!isBlocUpdatedEventsLoading &&
-        filteredBlocs &&
-        filteredBlocs
+      {UpdatedEvent &&
+        [...UpdatedEvent]
+          .reverse()
           .slice(0, 30)
-          .map((event, index) => (
+          .map((event: any, index: number) => (
             <EventCard
               key={index}
-              walletAddress={event.data.user}
-              newBloc={event.data.Bloc}
-              uniqueId={event.data.uniqueId}
-              timeStamp={event.data.timestamp}
+              walletAddress={event.args?.user}
+              newBloc={event.args?.Bloc}
+              uniqueId={event.args?.uniqueId}
+              timeStamp={event.args?.timestamp}
+              showTip={true}
             />
           ))}
     </div>

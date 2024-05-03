@@ -1,12 +1,5 @@
 export const CONTRACT_ABI = [
   {
-    type: "constructor",
-    name: "",
-    inputs: [],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
     type: "event",
     name: "BlocDeleted",
     inputs: [
@@ -130,19 +123,19 @@ export const CONTRACT_ABI = [
   },
   {
     type: "function",
-    name: "getBloc",
+    name: "getBlocTip",
     inputs: [
       {
         type: "address",
-        name: "_user",
+        name: "_address",
         internalType: "address",
       },
     ],
     outputs: [
       {
-        type: "string",
+        type: "uint256",
         name: "",
-        internalType: "string",
+        internalType: "uint256",
       },
     ],
     stateMutability: "view",
@@ -181,19 +174,6 @@ export const CONTRACT_ABI = [
         type: "string",
         name: "_Bloc",
         internalType: "string",
-      },
-    ],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "function",
-    name: "setRoyaltyPercentage",
-    inputs: [
-      {
-        type: "uint256",
-        name: "_percentage",
-        internalType: "uint256",
       },
     ],
     outputs: [],
@@ -250,12 +230,5 @@ export const CONTRACT_ABI = [
       },
     ],
     stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "withdrawBalance",
-    inputs: [],
-    outputs: [],
-    stateMutability: "nonpayable",
   },
 ] as const;
